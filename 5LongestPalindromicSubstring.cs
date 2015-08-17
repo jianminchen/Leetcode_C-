@@ -99,9 +99,29 @@ namespace _5LongestPalindromicSubstring
          * 
          * julia's comment: 
          * 1. The thought process to use DP method: 
-         *   palin[i][j] is about string's substring from postion i to j, 0 <= i <= j <= n-1, is palindrome
-         *   if s[i] = s[j], then subproblem of palin[i][j] should be palin[i+1][j-1] is true or not (assuming i+1<=j-1
-         *   => j-i>=2)
+         *   Total problems are n^2 in total, s[i][j] is palindromic, i<=j, s[i][j] is substring s from i to j; 
+         *   1. base case discussion 
+         *   2. construct a two dimension array to express all subproblems - substring are palindormic or not
+         *   using jagged array, default initialization is 0 - false
+         *   3. construct a two nested loops:
+         *      one loop for i: decreasing order, starting position
+         *      inside loop for j: increasing order, j>==i, ending position
+         *     
+         *   palin[i][j] is about string's substring from position i to j, 0 <= i <= j <= n-1, is palindrome
+         *   if s[i] = s[j], then subproblem of palin[i][j] should be palin[i+1][j-1] is true or not 
+         *   (assuming i+1<=j-1  => j-i>=2)
+         *   
+         * http://www.programcreek.com/2013/12/leetcode-solution-of-longest-palindromic-substring-java/
+         * start condition:
+         *  table[i][i] == 1;
+            table[i][i+1] == 1  => s[i] == s[i+1] 
+         * 
+         * Changing condition:
+         * table[i+1][j-1] == 1 && s[i] == s[j]
+           =>
+           table[i][j] == 1
+         * 
+         * Time complexity: O(n^2), space complexity: O(n^2) 
          */
         public static String longestPalindrome_2(String s) { 
             int len = s.Length; 
@@ -109,33 +129,53 @@ namespace _5LongestPalindromicSubstring
             if(s == null || len == 0)  
                 return "";  
 
-            bool[][] palin = new bool[len][];
+            bool[][] table = new bool[len][];
 
-            for (int i = 0; i < len; i++ )  // array palin[i][j] stands for DP 2-dimension array
+            for (int i = 0; i < len; i++ )  // array table[i][j] stands for DP 2-dimension array
             {
-                palin[i] = new bool[len]; 
+                table[i] = new bool[len]; 
             }
 
-            int maxLen = 0;  
-            String res = "";  
-            
+            int maxLen = 0;
+            String res = "";
 
-            for(int i=len-1; i>=0; i--)  
-            {  
-                for(int j=i; j<len; j++)  
-                {  
-                    if( s[i]==s[j] && (j-i<=2 || palin[i+1][j-1]))  
-                    {  
-                        palin[i][j] = true; 
- 
-                        if(maxLen < j-i+1)  
-                        {  
-                            maxLen = j-i+1;  
-                            res = s.Substring(i,j-i+1);  
-                        }  
-                    }  
-                }  
-            }  
+            //every single letter is palindrome
+            for (int i = 0; i < len; i++)
+            {
+                table[i][i] = true;
+            }          
+
+            //e.g. bcba
+            //two consecutive same letters are palindrome
+            for (int i = 0; i <= len - 2; i++)
+            {
+                if (s[i] == s[i + 1])
+                {
+                    table[i][i + 1] = true;
+                    res = s.Substring(i,  2);
+                }
+            }
+
+            //condition for calculate whole table
+            for (int l = 3; l <= len; l++)
+            {
+                for (int i = 0; i <= len - l; i++)
+                {
+                    int j = i + l - 1;
+                    if (s[i] == s[j])
+                    {
+                        table[i][j] = table[i + 1][j - 1];
+
+                        if (table[i][j] == true && l > maxLen)
+                            res = s.Substring(i, j -i + 1);
+                    }
+                    else
+                    {
+                        table[i][j] = false;
+                    }
+                    
+                }
+            }           
 
             return res;  
         }
