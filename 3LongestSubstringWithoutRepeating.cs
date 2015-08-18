@@ -48,7 +48,12 @@ namespace _3LongestSubstringWithoutRepeating
          *    Get into the second loop ! ( Do not worry, still O(N) solution, every char gets in/out once)
          *    
          * 2. code can be as simple as 10 minutes, and then, there is a chance to perform in 
-         *    10-15 minutes. 
+         *    10-15 minutes.
+         *    
+         *    online judge: 
+         *  981 / 981 test cases passed.
+	        Status: Accepted
+            Runtime: 156 ms
          *    
          *    
          */
@@ -78,11 +83,8 @@ namespace _3LongestSubstringWithoutRepeating
                                                 // but, it only goes out at most once, no repetition,
                                                 // still O(n)
                         bool foundTheOne = s[start] == s[end];
-                        if (foundTheOne)
-                        {
-                            start++;
+                        if (foundTheOne)                    
                             break;
-                        }
                                                
                         set.Remove(s[start]);   // remove all chars from sliding range 
                                                 // for example, "abcb", sliding window "abc", 
