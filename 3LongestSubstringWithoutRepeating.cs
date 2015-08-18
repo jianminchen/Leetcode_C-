@@ -35,7 +35,8 @@ namespace _3LongestSubstringWithoutRepeating
          * julia's comment:
          * 1. let us go over the thought process
          *    As we know, maintain two pointers for sliding window; will have O(N) solution
-         *    if sliding start pointer to move to next one if there is duplicated char;
+         *    if sliding start pointer to move x number of chars (sliding a few chars...tricky part) 
+         *    to avoid duplicate char;
          *    end pointer just moves one by one by iterating through the string
          *    step 1: base case: null or length is 0 
          *    step 2: create a hashset, two pointers for a sliding window
