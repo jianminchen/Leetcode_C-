@@ -83,5 +83,43 @@ namespace TwoSum
         public static bool compare(Node a, Node  b){
             return a.val < b.val;
         }
+
+        /*
+           source code from blog:
+         * http://www.acmerblog.com/leetcode-two-sum-5223.html
+         * 
+         * 解法2：使用HashMap。把每个数都存入map中，任何再逐个遍历，
+         * 查找是否有 target – nubmers[i]。 时间复杂度 O(n), space need for hashtable
+         */
+        int[] twoSum(int[] numbers, int target) {
+
+            int[] res = new int[2];
+
+            int length = numbers.Length;
+
+            Hashtable mp = new Hashtable();   // map C++ vs Hashtable C#
+
+            bool find;
+
+            for(int i = 0; i < length; ++i){
+
+                int key = target - numbers[i];
+                find = mp.Contains(key);
+
+                if( find ){
+
+                    res[0] = (int)mp[key]; 
+                    res[1] = i+1;
+
+                    break;
+                }
+
+                mp[numbers[i]] = i+1;
+            }
+
+            return res;
+
+        }
+
     }
 }
