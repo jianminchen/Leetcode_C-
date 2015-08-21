@@ -92,6 +92,7 @@ namespace _57InsertIntervals
          *    1. Abstract code, no more interval word in variable name; 
          *    2. Make it easy to go over test cases; 
          *       Case stands out easily in the code. 
+         *       Code is more testable. 
          *    
          *    step 1: Make the function a simple math, not interval business.  
          *    step 2: Two intervals, R1 (stands for come and go one in the loop), 
