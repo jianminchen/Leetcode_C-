@@ -118,21 +118,21 @@ namespace _57InsertIntervals
              {
                  Interval R1 = R_i;   // Range 1, come and go                 
 
-                 bool R1BeforeR2  = R1.end   < R2.start;
-                 bool R1AfterR2   = R1.start > R2.end;
-                 bool R1OverlapR2 = R1.end   >= R2.start ||
-                                    R1.start <= R2.end;
+                 bool isR1R2    = R1.end   < R2.start;          // R1 is before R2
+                 bool isR2R1    = R1.start > R2.end;            // R2 is before R1
+                 bool needMerge = R1.end   >= R2.start ||       // R1 overlaps R2 
+                                  R1.start <= R2.end;
 
-                 if (R1BeforeR2)
+                 if (isR1R2)
                  {
                      result.Add(R1);                     
                  }
-                 else if (R1AfterR2)
+                 else if (isR2R1)
                  {
                      result.Add(R2);
                      R2 = R1;  
                  }
-                 else if (R1OverlapR2)
+                 else if (needMerge)
                  {
                      R2 = new Interval(
                          Math.Min(R1.start, R2.start),
