@@ -60,7 +60,16 @@ namespace _109ConvertSortedListToBinarySearchTreeC
         {
             return sortedListToBST(head, listLength(head));
         }
-
+        /*
+         * julia's comment: 
+         * 1. It takes some time to do calculation of index, length of subtree. 
+         * This should be addressed in a simple way, maybe, 1-2 minutes. 
+         * 
+         * Julia found out that code needs to be worked on, more simple as blog:
+         * http://blog.csdn.net/linhuanmars/article/details/23904883
+         * 
+         * 2. Better solution is written called sortedListToBST_B
+         */
         public static TreeNode sortedListToBST(ListNode head, int len) {
             if (len == 0) return null;
            
@@ -68,7 +77,7 @@ namespace _109ConvertSortedListToBinarySearchTreeC
                 new TreeNode (head.val);
 
             // put all calculations here - think about how to spend shortest time on the calculation 
-            int rootIndex    = len / 2 ;       // starting from 0, 
+            int rootIndex    = len / 2 ;          // starting from 0, 
             int rightTreeHeadIndex = len /2 + 1;  // example: len is even, 1, 2, 3, 4 four node
                                                   // left tree, 1, 2, then, root index: 
 
@@ -120,6 +129,39 @@ namespace _109ConvertSortedListToBinarySearchTreeC
             }
 
             return node;
+        }
+
+        /*
+         * Julia's comment:
+         * Action Item: make the calculation to minimum, less error-prone. 
+         * 1. put all calculations here - think about how to spend shortest time on the calculation 
+           2. len /2 only shows once, all other, use m 
+         * 3. Julia needs to learn how to use abstract symbol 
+         * 4. Try to make the code look simple, testable, maintainable. 
+         */
+        public static TreeNode sortedListToBST_B(ListNode head, int len)
+        {
+            if (len == 0) return null;
+
+            if (len == 1) return
+                new TreeNode(head.val);
+
+            int m = len / 2;           // root index,  
+            int r_start = m + 1;       // right sub tree start position, do not go to detail: even, odd, waste time
+
+            int l_Len = m;             // left subtree length 
+            int r_len = len - m - 1;   // right sub tree length          
+
+            ListNode nthNode = nth_node(head, m);
+
+            TreeNode root = new TreeNode(nthNode.val);  // each divide and conquer, O(1) calculation to get the root index. 
+
+            root.left = sortedListToBST(head, l_Len);
+
+            ListNode secondHalf = nth_node(head, r_start);
+            root.right = sortedListToBST(secondHalf, r_len);
+
+            return root;
         }
     }
 }
