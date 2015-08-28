@@ -120,7 +120,7 @@ namespace _104MaximumDepthOfBinaryTree
             Runtime: 164 ms
          * 3. Interested and curious, why C# LinkedList failed but C# ArrayList success in online judge. 
          * 4. First time use C# ArrayList input argument as ArrayList as well. 
-         * 
+         * 5. chanage line 133 while use for, and make the loop easy to understand. 
          */
         public static int maxDepth_Iterative_B(TreeNode root) {
             if(root == null)    return 0;
