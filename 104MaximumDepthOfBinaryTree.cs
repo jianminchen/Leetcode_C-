@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -105,6 +106,51 @@ namespace _104MaximumDepthOfBinaryTree
             }
 
             return level;
-        }  
+        }
+
+        /*
+         * reference:
+         * http://joycelearning.blogspot.ca/2013/10/java-leetcode-maximum-depth-of-binary.html
+         * 
+         * julia's comment on August 27, 2015: 
+         * 1. quickly try the idea using ArrayList in C# 
+         * 2. online judge:
+         *  38 / 38 test cases passed.
+            Status: Accepted
+            Runtime: 164 ms
+         * 3. Interested and curious, why C# LinkedList failed but C# ArrayList success in online judge. 
+         * 4. First time use C# ArrayList input argument as ArrayList as well. 
+         * 
+         */
+        public static int maxDepth_Iterative_B(TreeNode root) {
+            if(root == null)    return 0;
+         
+            // Non-recursive, use level order triversal
+            ArrayList  q = new ArrayList ();
+            q.Add(root);
+            int depth = 0;
+
+            for (; ; )
+            {
+                ArrayList next = new ArrayList();
+
+                foreach (TreeNode node in q)
+                {
+                    if (node.left != null)
+                        next.Add(node.left);
+
+                    if (node.right != null)
+                        next.Add(node.right);
+                }
+
+                depth++;
+
+                q = new ArrayList(next);                            
+                if (q.Count == 0)
+                    break; 
+            }
+         
+            return depth;
+        }
     }
 }
