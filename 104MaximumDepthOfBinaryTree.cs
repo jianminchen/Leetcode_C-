@@ -125,7 +125,7 @@ namespace _104MaximumDepthOfBinaryTree
         public static int maxDepth_Iterative_B(TreeNode root) {
             if(root == null)    return 0;
          
-            // Non-recursive, use level order triversal
+            // Non-recursive, use level order traversal
             ArrayList  q = new ArrayList ();
             q.Add(root);
             int depth = 0;
@@ -134,20 +134,21 @@ namespace _104MaximumDepthOfBinaryTree
             {
                 ArrayList next = new ArrayList();
 
-                foreach (TreeNode node in q)
+                foreach (TreeNode nd in q)
                 {
-                    if (node.left != null)
-                        next.Add(node.left);
+                    if (nd.left != null)
+                        next.Add(nd.left);
 
-                    if (node.right != null)
-                        next.Add(node.right);
+                    if (nd.right != null)
+                        next.Add(nd.right);
                 }
 
                 depth++;
 
-                q = new ArrayList(next);                            
-                if (q.Count == 0)
-                    break; 
+                if (next.Count == 0)
+                    break;
+
+                q = new ArrayList(next);                                             
             }
          
             return depth;
