@@ -81,7 +81,7 @@ namespace _104MaximumDepthOfBinaryTree
             int nextNum = 0;   //num of nodes in next level  
             while (queue.Count > 0 )
             {
-                TreeNode n = queue.First();  // Java Queue Poll - find first, return null if not existed
+                TreeNode n = queue.First();  // Java Queue Poll - find first, return null if not existed / C# Queue.Firist
                 curNum--;
 
                 if (n.left != null)
