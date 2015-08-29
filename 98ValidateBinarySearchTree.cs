@@ -200,4 +200,32 @@ namespace _98ValidateBinarySearchTree
          return true;
       }
     }
+
+    /*
+     * Reference:
+     * http://www.lifeincode.net/programming/leetcode-validate-binary-search-tree-java/
+     * 
+     * Analysis from the above reference:
+     * Algorithm 1: We have known what is a BST, so we can write a function to find the 
+     * maximum value in the left subtree of root node, and the minimum value in the right 
+     * subtree of root node, and compare them with value of root. We need to continue doing 
+     * this for each node in the tree. But every time we find the maximum value or minimum 
+     * value will costs O(n), and this algorithm will cost O(n^2) because we need to do this 
+     * for every node, which is not efficient.
+
+       Algorithm 2: For a node root, we know that all nodes in the left subtree is smaller 
+     * than the value of root. We can pass this value to the left subtree, checking if the 
+     * value of its left child is smaller than this value. Then we will update this passing 
+     * value to the value of left child and keep passing it to next level. For the right 
+     * subtree, we need to make sure that all values in the right subtree is larger than 
+     * the value of root. In conclusion, we should pass two values, which is min and max, 
+     * to the next level, and compare the value of nodes. Update the min and max, and pass it 
+     * to next level until we reach the leaf node.
+
+       Algorithm 3: The in-order traverse can helps us. Doing a in-order traverse on a BST, 
+     * the output will be a increasing sequence.
+     * 
+     * Algorithm 2 and 3 complexity: time complexity: O(n), since each node is visited once. 
+     *
+     */
 }
