@@ -75,6 +75,24 @@ namespace _98ValidateBinarySearchTree
         *   74 / 74 test cases passed.
             Status: Accepted
             Runtime: 216 ms
+        * 3. Some analysis about the binary search tree range: Maximum value and minimum value, thought process please:
+        *    Go over an example, binary search tree: 
+        *        A
+        *      /    \
+        *     B      C
+        *    / \    /  \
+        *   D   E  F    G
+        *   Level 1: A,   A is in range: [long.MIN, long.MAX]
+        *   Level 2: 
+        *            B,   B is in range: [long.MIN, A.value]   <- A, go to left , to B, update upper value. 
+        *            C,   C is in range: [A.value, long.Max]   <- A, go to right, to C, update lower value.
+        *   Level 3: 
+        *            D,   D is in range: [long.MIN, B.value]
+        *            E,   E is in range: [B.value,  A. value]
+        *            ...
+        *   How to think recursively? 
+        *   Every step, there is a value range to maintain
+        *    
         */
        public static bool isValidBST_B(TreeNode root)
        {
