@@ -86,17 +86,14 @@ namespace _98ValidateBinarySearchTree
            if (node == null)
                return true;
 
-           int v = node.val;
-           bool rootInRange = v > MIN && v < MAX;                 // Range: (MIN, MAX) 
-           if (!rootInRange)
+           int v = node.val;           
+           if (!(v > MIN && v < MAX))                            // Range: (MIN, MAX) 
                return false;
-
-           bool l_BST = IsValidBST_B(node.left, MIN, v);  // left sub tree BST check: new Range: (MIN, v)
-           if (!l_BST)
+          
+           if (!IsValidBST_B(node.left, MIN, v))                 // left sub tree BST check: new Range: (MIN, v)
                return false;
-
-           bool r_BST = IsValidBST_B(node.right, v, MAX); // right sub tree BST check: new Range: (v, MAX)
-           if (!r_BST)
+          
+           if (!IsValidBST_B(node.right, v, MAX))                // right sub tree BST check: new Range: (v, MAX)
                return false;
 
            return true;
