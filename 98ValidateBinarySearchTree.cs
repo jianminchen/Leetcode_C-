@@ -26,6 +26,18 @@ namespace _98ValidateBinarySearchTree
         }
 
         /*
+         * Spent over 4 hours to go over solutions, on August 28, August 29, 2015
+         * A list of solutions tried:
+         * 1. recursive, time O(n), using beta-alpha pruning? 
+         * 2. recursive, use long Max value / min Value instead of int's to avoid the bug
+         * 3. use inorder traversal output to help checking BST
+         * 4. same as 3, value TreeNode variable
+         * 5. sames as 3, 
+         * 6. same as 3, 
+         * 7. same as 3, but use iterative solution 
+         * 8. Great analysis, brute force solution, time complexity O(n^2) vs beta-alpha pruning time O(n)
+         */
+        /*
          * Reference:
          * http://fisherlei.blogspot.ca/2013/01/leetcode-validate-binary-search-tree.html
          * 
@@ -240,6 +252,67 @@ namespace _98ValidateBinarySearchTree
             if (!isValidBST_E(root.right))
             {
                 return false;
+            }
+
+            return true;
+        }
+
+        /*
+         * Reference:
+         * 
+         * https://github.com/yuzhangcmu/LeetCode/blob/master/tree/IsValidBST_1221_2014.java
+         * 
+         * Just use the inOrder traversal to solve the problem.
+         * 
+         * Julia's comment: 
+         * 1. review iterative solution inorder traversal algorithm 
+         *  thought process, here is the script written: 
+         *  
+         *  Iterative solution, need a stack, and two nodes variables to help tracking. 
+         *  Start from root node as cur, pre node is null
+         *  Start a loop, 
+         *  inside the loop, 
+         *  1. push all the left  nodes into the stack;
+         *  2. if stack is empty, time to exit the loop; 
+         *  3. pop a node from the stack, since no left nodes, just deal with the current node. 
+         *  4. check BST, a value check: based on assumption, inorder traversal output is increasing order.
+         *  5. Recover for code reuse, next iteration, set cur to pre;
+         *  6. go to the right node. 
+         *  
+         * 2. online judge passed:
+         *      74 / 74 test cases passed.
+                Status: Accepted
+                Runtime: 172 ms
+         */
+        public bool isValidBST1(TreeNode root)
+        {            
+            if (root == null)            
+                return true;            
+
+            Stack<TreeNode> s = new Stack<TreeNode>();    
+
+            TreeNode cur = root;                          
+            TreeNode pre = null;
+
+            while (true)                 
+            {
+                while (cur != null)    //  step 1 
+                {
+                    s.Push(cur);
+                    cur = cur.left;
+                }
+
+                if (s.Count == 0 )    //  step 2                 
+                    break;              
+
+                cur = s.Pop();        //   step 3 
+
+                if (pre != null && pre.val >= cur.val)  // step 4          
+                    return false;                
+
+                pre = cur;           // step 5 
+
+                cur = cur.right;     // step 6 
             }
 
             return true;
