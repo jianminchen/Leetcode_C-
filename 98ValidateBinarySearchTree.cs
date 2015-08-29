@@ -92,6 +92,9 @@ namespace _98ValidateBinarySearchTree
         *            ...
         *   How to think recursively? 
         *   Every step, there is a value range to maintain
+        * 4. Read the alpha-beat pruning articles: 
+        *    http://blog.csdn.net/likecool21/article/details/23271621
+        *    http://web.cs.ucla.edu/~rosen/161/notes/alphabeta.html
         *    
         */
        public static bool isValidBST_B(TreeNode root)
@@ -117,6 +120,84 @@ namespace _98ValidateBinarySearchTree
            return true;
        }
 
+        /*
+         * Reference:
+         * http://blog.csdn.net/likecool21/article/details/23271621
+         * 
+         * analysis from the above blog:
+         * 还有一种方法：如果一棵树是BST，那么如果做一个in order traversal
+         * 的话产生的数组应该是排好序的。这样就一边进行in order traversal,
+         * 一边比较当前值是不是比前一个值大就行了。这里用了个static变量来记录
+         * 之前的值，使其在递归时能被记住。如果用C++的话按引用传递就不需要static了。
+         * 
+         * julia's comment: 
+         * 1. online judge: 
+         *  38 / 74 test cases passed
+         *  input: [0, -1], output: false, expected: true
+         */
+       public static long previous = long.MinValue; 
+       public static bool isValidBST_C(TreeNode root)
+       {
+           if (root == null)
+               return true;
+            
+           if (isValidBST_C(root.left) == false)  // left subtree
+               return false;
+
+           if (root.val <= previous)              // the current node  
+               return false;
+
+           previous = root.val;
+
+           if (isValidBST_C(root.right) == false) //the right subtree            
+               return false;          
+
+           return true;
+       }
+
+       /*
+        * reference:
+        * http://www.cnblogs.com/yuzhangcmu/p/4177047.html
+        * Analysis:
+        * 使用一个全局变量，用递归的中序遍历来做，也很简单
+        * 
+        * julia's comment: 
+        * 1. Cannot pass online judge
+        * Failed test case:
+          38 / 74 test cases passed
+        * input: [0, -1], output: false, expected: true
+        * 
+        * 2. Compare the difference using this global variable of tree node to the above using previous value. 
+        */
+       public static TreeNode pre = null;
       
+      public static bool isValidBST_D(TreeNode root) {
+          // Just use the inOrder traversal to solve the problem.
+          return dfs(root);
+      }
+     
+      public static bool dfs(TreeNode root) {
+         if (root == null) {
+             return true;
+         }
+         
+         // Judge the left tree.
+         if (!dfs(root.left)) {
+             return false;
+         }
+         
+         // judge the sequence.
+         if (pre != null && root.val <= pre.val) {
+             return false;
+         }
+         pre = root;
+         
+         // Judge the right tree.
+         if (!dfs(root.right)) {
+             return false;
+         }
+         
+         return true;
+      }
     }
 }
