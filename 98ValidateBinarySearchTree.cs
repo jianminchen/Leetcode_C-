@@ -82,7 +82,7 @@ namespace _98ValidateBinarySearchTree
         *     B      C
         *    / \    /  \
         *   D   E  F    G
-        *   Level 1: A,   A is in range: [long.MIN, long.MAX]
+        *   Level 1: A,   A is in range: [long.MIN, long.MAX] <- tip: all nodes are int, to include int.MAX, int.MIN, use long range
         *   Level 2: 
         *            B,   B is in range: [long.MIN, A.value]   <- A, go to left , to B, update upper value. 
         *            C,   C is in range: [A.value, long.Max]   <- A, go to right, to C, update lower value.
