@@ -43,18 +43,19 @@ namespace _98ValidateBinarySearchTree
          * 1. Failed to pass online judge: 
          *  [2147483647] input, false, should be true
          */
-        public static bool isValidBST(TreeNode root) {  
-            return IsValidBST(root, int.MinValue, int.MaxValue);  
-       }  
+        public static bool isValidBST(TreeNode root)
+        {
+            return IsValidBST(root, int.MinValue, int.MaxValue);
+        }
 
-       public static bool IsValidBST(TreeNode node, int MIN, int MAX)   
-       {  
-            if(node == null)  
-                  return true;
+        public static bool IsValidBST(TreeNode node, int MIN, int MAX)
+        {
+            if (node == null)
+                return true;
 
             int v = node.val;
             bool rootInRange = v > MIN && v < MAX;                 // Range: (MIN, MAX) 
-            if (!rootInRange) 
+            if (!rootInRange)
                 return false;
 
             bool l_BST = IsValidBST(node.left, MIN, v);  // left sub tree BST check: new Range: (MIN, v)
@@ -65,60 +66,60 @@ namespace _98ValidateBinarySearchTree
             if (!r_BST)
                 return false;
 
-            return true; 
-       }
+            return true;
+        }
 
-       /*
-        * julia's comment: 
-        * 1. change int.MinValue to long.MinValue, int.MaxValue to long.MaxValue
-        * 2. pass online judge: 
-        *   74 / 74 test cases passed.
-            Status: Accepted
-            Runtime: 216 ms
-        * 3. Some analysis about the binary search tree range: Maximum value and minimum value, thought process please:
-        *    Go over an example, binary search tree: 
-        *        A
-        *      /    \
-        *     B      C
-        *    / \    /  \
-        *   D   E  F    G
-        *   Level 1: A,   A is in range: [long.MIN, long.MAX] <- tip: all nodes are int, to include int.MAX, int.MIN, use long range
-        *   Level 2: 
-        *            B,   B is in range: [long.MIN, A.value]   <- A, go to left , to B, update upper value. 
-        *            C,   C is in range: [A.value, long.Max]   <- A, go to right, to C, update lower value.
-        *   Level 3: 
-        *            D,   D is in range: [long.MIN, B.value]
-        *            E,   E is in range: [B.value,  A. value]
-        *            ...
-        *   How to think recursively? 
-        *   Every step, there is a value range to maintain
-        * 4. Read the alpha-beat pruning articles: 
-        *    http://blog.csdn.net/likecool21/article/details/23271621
-        *    http://web.cs.ucla.edu/~rosen/161/notes/alphabeta.html
-        *    
-        */
-       public static bool isValidBST_B(TreeNode root)
-       {
-           return IsValidBST_B(root, long.MinValue, long.MaxValue);
-       }
+        /*
+         * julia's comment: 
+         * 1. change int.MinValue to long.MinValue, int.MaxValue to long.MaxValue
+         * 2. pass online judge: 
+         *   74 / 74 test cases passed.
+             Status: Accepted
+             Runtime: 216 ms
+         * 3. Some analysis about the binary search tree range: Maximum value and minimum value, thought process please:
+         *    Go over an example, binary search tree: 
+         *        A
+         *      /    \
+         *     B      C
+         *    / \    /  \
+         *   D   E  F    G
+         *   Level 1: A,   A is in range: [long.MIN, long.MAX] <- tip: all nodes are int, to include int.MAX, int.MIN, use long range
+         *   Level 2: 
+         *            B,   B is in range: [long.MIN, A.value]   <- A, go to left , to B, update upper value. 
+         *            C,   C is in range: [A.value, long.Max]   <- A, go to right, to C, update lower value.
+         *   Level 3: 
+         *            D,   D is in range: [long.MIN, B.value]
+         *            E,   E is in range: [B.value,  A. value]
+         *            ...
+         *   How to think recursively? 
+         *   Every step, there is a value range to maintain
+         * 4. Read the alpha-beat pruning articles: 
+         *    http://blog.csdn.net/likecool21/article/details/23271621
+         *    http://web.cs.ucla.edu/~rosen/161/notes/alphabeta.html
+         *    
+         */
+        public static bool isValidBST_B(TreeNode root)
+        {
+            return IsValidBST_B(root, long.MinValue, long.MaxValue);
+        }
 
-       public static bool IsValidBST_B(TreeNode node, long MIN, long MAX)
-       {
-           if (node == null)
-               return true;
+        public static bool IsValidBST_B(TreeNode node, long MIN, long MAX)
+        {
+            if (node == null)
+                return true;
 
-           int v = node.val;           
-           if (!(v > MIN && v < MAX))                            // Range: (MIN, MAX) 
-               return false;
-          
-           if (!IsValidBST_B(node.left, MIN, v))                 // left sub tree BST check: new Range: (MIN, v)
-               return false;
-          
-           if (!IsValidBST_B(node.right, v, MAX))                // right sub tree BST check: new Range: (v, MAX)
-               return false;
+            int v = node.val;
+            if (!(v > MIN && v < MAX))                            // Range: (MIN, MAX) 
+                return false;
 
-           return true;
-       }
+            if (!IsValidBST_B(node.left, MIN, v))                 // left sub tree BST check: new Range: (MIN, v)
+                return false;
+
+            if (!IsValidBST_B(node.right, v, MAX))                // right sub tree BST check: new Range: (v, MAX)
+                return false;
+
+            return true;
+        }
 
         /*
          * Reference:
@@ -135,97 +136,141 @@ namespace _98ValidateBinarySearchTree
          *  38 / 74 test cases passed
          *  input: [0, -1], output: false, expected: true
          */
-       public static long previous = long.MinValue; 
-       public static bool isValidBST_C(TreeNode root)
-       {
-           if (root == null)
-               return true;
-            
-           if (isValidBST_C(root.left) == false)  // left subtree
-               return false;
+        public static long previous = long.MinValue;
+        public static bool isValidBST_C(TreeNode root)
+        {
+            if (root == null)
+                return true;
 
-           if (root.val <= previous)              // the current node  
-               return false;
+            if (isValidBST_C(root.left) == false)  // left subtree
+                return false;
 
-           previous = root.val;
+            if (root.val <= previous)              // the current node  
+                return false;
 
-           if (isValidBST_C(root.right) == false) //the right subtree            
-               return false;          
+            previous = root.val;
 
-           return true;
-       }
+            if (isValidBST_C(root.right) == false) //the right subtree            
+                return false;
 
-       /*
-        * reference:
-        * http://www.cnblogs.com/yuzhangcmu/p/4177047.html
-        * Analysis:
-        * 使用一个全局变量，用递归的中序遍历来做，也很简单
-        * 
-        * julia's comment: 
-        * 1. Cannot pass online judge
-        * Failed test case:
-          38 / 74 test cases passed
-        * input: [0, -1], output: false, expected: true
-        * 
-        * 2. Compare the difference using this global variable of tree node to the above using previous value. 
-        */
-       public static TreeNode pre = null;
-      
-      public static bool isValidBST_D(TreeNode root) {
-          // Just use the inOrder traversal to solve the problem.
-          return dfs(root);
-      }
-     
-      public static bool dfs(TreeNode root) {
-         if (root == null) {
-             return true;
-         }
-         
-         // Judge the left tree.
-         if (!dfs(root.left)) {
-             return false;
-         }
-         
-         // judge the sequence.
-         if (pre != null && root.val <= pre.val) {
-             return false;
-         }
-         pre = root;
-         
-         // Judge the right tree.
-         if (!dfs(root.right)) {
-             return false;
-         }
-         
-         return true;
-      }
+            return true;
+        }
+
+        /*
+         * reference:
+         * http://www.cnblogs.com/yuzhangcmu/p/4177047.html
+         * Analysis:
+         * 使用一个全局变量，用递归的中序遍历来做，也很简单
+         * 
+         * julia's comment: 
+         * 1. Cannot pass online judge
+         * Failed test case:
+           38 / 74 test cases passed
+         * input: [0, -1], output: false, expected: true
+         * 
+         * 2. Compare the difference using this global variable of tree node to the above using previous value. 
+         */
+        public static TreeNode pre = null;
+
+        public static bool isValidBST_D(TreeNode root)
+        {
+            // Just use the inOrder traversal to solve the problem.
+            return dfs(root);
+        }
+
+        public static bool dfs(TreeNode root)
+        {
+            if (root == null)
+            {
+                return true;
+            }
+
+            // Judge the left tree.
+            if (!dfs(root.left))
+            {
+                return false;
+            }
+
+            // judge the sequence.
+            if (pre != null && root.val <= pre.val)
+            {
+                return false;
+            }
+            pre = root;
+
+            // Judge the right tree.
+            if (!dfs(root.right))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
+        /*
+         * reference:
+         * http://blog.welkinlan.com/2015/05/21/validate-binary-search-tree-leetcode-java/
+         * 
+         * 
+         */
+        private static bool isFirstNode = true;
+        private static int lastVal = int.MinValue;
+        public bool isValidBST_E(TreeNode root)
+        {
+
+            if (root == null)
+            {
+                return true;
+            }
+
+            if (!isValidBST_E(root.left))
+            {
+                return false;
+            }
+
+            if (!isFirstNode && root.val <= lastVal)
+            {
+                return false;
+            }
+
+            isFirstNode = false;
+            lastVal = root.val;
+
+            if (!isValidBST_E(root.right))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /*
+         * Reference:
+         * http://www.lifeincode.net/programming/leetcode-validate-binary-search-tree-java/
+         * 
+         * Analysis from the above reference:
+         * Algorithm 1: We have known what is a BST, so we can write a function to find the 
+         * maximum value in the left subtree of root node, and the minimum value in the right 
+         * subtree of root node, and compare them with value of root. We need to continue doing 
+         * this for each node in the tree. But every time we find the maximum value or minimum 
+         * value will costs O(n), and this algorithm will cost O(n^2) because we need to do this 
+         * for every node, which is not efficient.
+
+           Algorithm 2: For a node root, we know that all nodes in the left subtree is smaller 
+         * than the value of root. We can pass this value to the left subtree, checking if the 
+         * value of its left child is smaller than this value. Then we will update this passing 
+         * value to the value of left child and keep passing it to next level. For the right 
+         * subtree, we need to make sure that all values in the right subtree is larger than 
+         * the value of root. In conclusion, we should pass two values, which is min and max, 
+         * to the next level, and compare the value of nodes. Update the min and max, and pass it 
+         * to next level until we reach the leaf node.
+
+           Algorithm 3: The in-order traverse can helps us. Doing a in-order traverse on a BST, 
+         * the output will be a increasing sequence.
+         * 
+         * Algorithm 2 and 3 complexity: time complexity: O(n), since each node is visited once. 
+         *
+         */
     }
-
-    /*
-     * Reference:
-     * http://www.lifeincode.net/programming/leetcode-validate-binary-search-tree-java/
-     * 
-     * Analysis from the above reference:
-     * Algorithm 1: We have known what is a BST, so we can write a function to find the 
-     * maximum value in the left subtree of root node, and the minimum value in the right 
-     * subtree of root node, and compare them with value of root. We need to continue doing 
-     * this for each node in the tree. But every time we find the maximum value or minimum 
-     * value will costs O(n), and this algorithm will cost O(n^2) because we need to do this 
-     * for every node, which is not efficient.
-
-       Algorithm 2: For a node root, we know that all nodes in the left subtree is smaller 
-     * than the value of root. We can pass this value to the left subtree, checking if the 
-     * value of its left child is smaller than this value. Then we will update this passing 
-     * value to the value of left child and keep passing it to next level. For the right 
-     * subtree, we need to make sure that all values in the right subtree is larger than 
-     * the value of root. In conclusion, we should pass two values, which is min and max, 
-     * to the next level, and compare the value of nodes. Update the min and max, and pass it 
-     * to next level until we reach the leaf node.
-
-       Algorithm 3: The in-order traverse can helps us. Doing a in-order traverse on a BST, 
-     * the output will be a increasing sequence.
-     * 
-     * Algorithm 2 and 3 complexity: time complexity: O(n), since each node is visited once. 
-     *
-     */
 }
