@@ -34,7 +34,18 @@ namespace _99RecoverBinarySearchTreeB
             TreeNode n2 = new TreeNode(2);
             n2.right = new TreeNode(1);
 
-            recoverTree(n2); 
+            recoverTree(n2);
+
+            TreeNode n3 = new TreeNode(4);
+            n3.left = new TreeNode(6);
+            n3.left.left = new TreeNode(1);
+            n3.left.right = new TreeNode(3);
+
+            n3.right = new TreeNode(2);
+            n3.right.left = new TreeNode(5);
+            n3.right.right = new TreeNode(7);
+
+            //recoverTree(n3); 
 
 
         }
@@ -85,12 +96,11 @@ namespace _99RecoverBinarySearchTreeB
                 if (theFirst == null)
                 {
                     theFirst = t;
-                    theSecond = theLast;
+                    theSecond = theLast;   // this is the one - violation one. 
                 }
                 else
-                {
-                    TreeNode tmp = theSecond;
-                    theFirst = tmp; 
+                {                    
+                    theFirst = theSecond; 
                     theSecond = t;
                 }
             }
