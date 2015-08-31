@@ -43,11 +43,15 @@ namespace _99RecoveryBinarySearchTree_C
 	        Status: Accepted
             Runtime: 324 ms
          * 
+         * 4. Read the code, and write down the script: 
+         * Actually it is in Morris order traversal, not using stack; use the existing right 
+         * child pointer connect the traversal nodes, later revert the change. 
+         * 
          */
         public static void recoverTree(TreeNode root)
         {
-            TreeNode f1 = null,     // two vilation nodes, f1 and f2 
-                     f2 = null;
+            TreeNode v1 = null,     // two vilation nodes, v1 and v2 
+                     v2 = null;
 
             TreeNode ith,           // ith - current node, node will go through inorder traversal                                      
                      pr,            // pr - previous node
@@ -65,7 +69,7 @@ namespace _99RecoveryBinarySearchTree_C
             {
                 if (ith.left == null)
                 {
-                    violationChecking(pa, ith, ref f1, ref f2, ref found);
+                    violationChecking(pa, ith, ref v1, ref v2, ref found);
 
                     pa = ith;         // recover phase, go to next node; 
                                       // no left, then, go to the right. 
@@ -89,19 +93,19 @@ namespace _99RecoveryBinarySearchTree_C
                     {
                         pr.right = null;   // revert the change. Why? Remember? 
 
-                        violationChecking(pa, ith, ref f1, ref f2, ref found);
+                        violationChecking(pa, ith, ref v1, ref v2, ref found);
 
                         pa = ith;
                         ith = ith.right;    // go to next iteration, no left child, so right child. 
                     } /* End of if condition pre->right == NULL */
-                } /* End of if condition current->left == NULL*/
-            } /* End of while */
+                }     /* End of if condition current->left == NULL*/
+            }         /* End of while */
 
-            if (f1 != null && f2 != null)  // swap f1 and f2 
+            if (v1 != null && v2 != null)  // swap v1 and v2 
             {
-                int tmp = f1.val;
-                f1.val = f2.val;
-                f2.val = tmp;
+                int tmp = v1.val;
+                v1.val = v2.val;
+                v2.val = tmp;
             }
         }
 
@@ -145,15 +149,15 @@ namespace _99RecoveryBinarySearchTree_C
          *     1           2
          *      \    ->     \
          *      2            1
-         *  Manually, walk through the code, make sure that f1 and f2 are correct results. 
+         *  Manually, walk through the code, make sure that v1 and v2 are correct results. 
          *  
          * input arguments: 
          *     n1 -  previous  -- 
          *     n2 -  current   --
          * output arguments:
-         *      f1,       -- viloation node 1
-         *      f2,       -- violation node 2 
-         *      found     -- found 
+         *      v1,       -- viloation node 1
+         *      v2,       -- violation node 2 
+         *      found     -- usually violation can be found at most twice; first violation, set found = true from false. 
          *  assumption: n2 node is not null
          *  violation facts:
          *  1. first node, it is the one with bigger value, violated; 
@@ -161,23 +165,24 @@ namespace _99RecoveryBinarySearchTree_C
          *  2. sometimes, only one violation catch; like base case A, switch two nodes, only two nodes
          *     in the tree. Tree [2,#,1]
          *  3. sometimes, two violationes catch. 
-         *     Tree [2, 3, 1], first one is 3, 2, second one is 2, 1. 
+         *     Tree [2, 3, 1], inorder traversal result is 3, 2, 1, and then, first one of viloations is 3, 2, 
+         *     second one of viloations is 2, 1. 
          */
         private static void violationChecking(TreeNode n1,
                                               TreeNode n2,
-                                              ref TreeNode f1,
-                                              ref TreeNode f2,
+                                              ref TreeNode v1,
+                                              ref TreeNode v2,
                                               ref bool found)
         {
             if (n1 != null && n1.val > n2.val)  // break "increasing order" principle
             {
                 if (!found)
                 {
-                    f1 = n1;   // bigger value violated - first one always
+                    v1 = n1;   // bigger value violated - first one always
                     found = true;
                 }
 
-                f2 = n2;       // smaller value violated - second one always 
+                v2 = n2;       // smaller value violated - second one always 
             }
         }
 
