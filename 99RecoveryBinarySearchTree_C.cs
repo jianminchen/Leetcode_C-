@@ -47,6 +47,51 @@ namespace _99RecoveryBinarySearchTree_C
          * Actually it is in Morris order traversal, not using stack; use the existing right 
          * child pointer connect the traversal nodes, later revert the change. 
          * 
+         * First, use two violation nodes, 3 nodes: current node, previous node, parent node to help
+         * tracking the inorder traversal process. 
+         * 
+         * base case discussion: root node is null, return
+         * start from root node, get in a loop, 
+         * 
+         * if node in the loop (ith)'s left child is null, then, 
+         * do a violation checking function call using parent node (pa), ith node input arguments, 
+         * after the call, recover phase: ith node is set as pa node, ith.right is ith node (go to its right child).
+         * using example to explain: 
+         *     1 
+         *      \
+         *       3
+         *      / \ 
+         *      2  4
+         *    starting from root node (1), (1)'s left child is empty, and then, before moving to next node:
+         *    (1)'s right child (3), do violation check, and then, set ith's node to (3), and parent node as ith's node (1). 
+         * 
+         * else if ith's left child is not null, then, 
+         * find predecessor node  of ith's node, denoted as previous node (pr), 
+         * if pr's right child is null, then, threaded link is not set up, 
+         * so, set up the link before moving to ith's node's next one - its left child
+         * using example to explain the work here:
+         *       4
+         *      /
+         *     2
+         *    / \ 
+         *    1  3
+         *    starting from root node (4), (4)'s left child is not null, and then, find its inorder 
+         *    predecessor node (3), 
+         *     case A: node (3)'s right child is not set up to node (4), then, 
+         *     set up node (3)'s right = node (4), move ith's node's left node, node (2). 
+         *     
+         *     case B: node (3)'s right child is already set up to node (4), then
+         *     revert the change, (3).right = null
+         *     do violation check, parent node pa, ith node, 
+         *     recover phase: set parent node pa as ith node, and then, move to ith's right node. 
+         *     
+         *     What we miss here, Morris order second visit of node 4. how to do traversal? 
+         *     visit (4), then, set up (3)'s right = (4), so, continue to travel, 4->2. 
+         *     output of inorder traversal only happens two cases: 
+         *       one is to travel fake link, right child; second one is to travel to its right child.  
+         *     
+         *  
+         * 
          */
         public static void recoverTree(TreeNode root)
         {
