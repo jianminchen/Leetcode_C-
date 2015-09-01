@@ -68,7 +68,12 @@ namespace _99RecoveryBinarySearchTree_C
          * else if ith's left child is not null, then, 
          * find predecessor node  of ith's node, denoted as previous node (pr), 
          * if pr's right child is null, then, threaded link is not set up, 
-         * so, set up the link before moving to ith's node's next one - its left child
+         * so, set up the link before moving to ith's node's next one - its left child; 
+         * else if pr's right child is not null, then, 
+         *     break the threaded link; 
+         *     do violation check, two node, pa, ith; 
+         *     recover phase, set parent node pa = ith, and then, move to ith's right node. 
+         *     
          * using example to explain the work here:
          *       4
          *      /
