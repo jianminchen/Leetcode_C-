@@ -215,8 +215,10 @@ namespace _99RecoveryBinarySearchTree_C
          *  2. sometimes, only one violation catch; like base case A, switch two nodes, only two nodes
          *     in the tree. Tree [2,#,1]
          *  3. sometimes, two violationes catch. 
-         *     Tree [2, 3, 1], inorder traversal result is 3, 2, 1, and then, first one of viloations is 3, 2, 
-         *     second one of viloations is 2, 1. 
+         *     Tree [2, 3, 1], inorder traversal result is 3, 2, 1, and then, 
+         *     first one of viloations is 3, 2, 3>2, the violation one is 3, bigger value;
+         *     second one of viloations is 2, 1, 2>1, the violation one is 1, smaller value;
+         *     so, 3 and 1 should be swapped back as 1 (2) 3
          */
         private static void violationChecking(TreeNode n1,
                                               TreeNode n2,
