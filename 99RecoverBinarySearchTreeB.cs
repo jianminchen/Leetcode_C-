@@ -55,7 +55,7 @@ namespace _99RecoverBinarySearchTreeB
          * http://www.jiuzhang.com/solutions/recover-binary-search-tree/
          * 
          * julia's comment:
-         * 1. the code could not pass online judge 
+         * 1. the code could not pass online judge (need to take away static keyword) 
          * 
          *  Input:
                 [2,null,1]
@@ -66,20 +66,25 @@ namespace _99RecoverBinarySearchTreeB
          *  But, my own test case shows correct. 
          */
 
-        private static TreeNode theFirst  = null;
-        private static TreeNode theSecond = null;
-        private static TreeNode theLast   = new TreeNode(int.MinValue);
+        private static TreeNode v1 = null;     // the first violation node 
+        private static TreeNode v2 = null;  // the second violation node
+        private static TreeNode theLast = new TreeNode(int.MinValue);
 
         public static void recoverTree(TreeNode root)
         {
             // traverse and get two elements
             traverse(root);
             // swap
-            int temp = theFirst.val;
-            theFirst.val = theSecond.val;
-            theSecond.val = temp;
+            int temp = v1.val;
+            v1.val = v2.val;
+            v2.val = temp;
         }
 
+        /*
+         * julia's comment:
+         * the violation in inorder traversal output is not written in most simple form. 
+         * Rewrite the second version traverse_B
+         */
         private static void traverse(TreeNode t)
         {
             if (t == null)
@@ -91,22 +96,69 @@ namespace _99RecoverBinarySearchTreeB
 
 
             bool inIncreasingOrder = t.val > theLast.val;
-            if (! inIncreasingOrder)  // not in increasing order 
+            if (!inIncreasingOrder)  // not in increasing order 
             {
-                if (theFirst == null)
+                if (v1 == null)
                 {
-                    theFirst = t;
-                    theSecond = theLast;   // this is the one - violation one. 
+                    v1 = t;
+                    v2 = theLast;   // this is the one - violation one. 
                 }
                 else
-                {                    
-                    theFirst = theSecond; 
-                    theSecond = t;
+                {
+                    v1 = v2;
+                    v2 = t;
                 }
             }
-            
+
             theLast = t;
             traverse(t.right);
-        }        
+        }
+
+        /*
+         * 
+         *  Base test case: 
+         *   tree only have two nodes, switched; 
+         *   case A: 
+         *      2          1
+         *     /    ->    /                               
+         *     1         2
+         *   case B: 
+         *     1           2
+         *      \    ->     \
+         *      2            1
+         *      
+         violation facts:
+         *  1. first node, it is the one with bigger value, violated; 
+         *  but second node, it is the one with smaller value, violated. 
+         *  2. sometimes, only one violation catch; like base case A, switch two nodes, only two nodes
+         *     in the tree. Tree [2,#,1]
+         *  3. sometimes, two violationes catch. 
+         *     Tree [2, 3, 1], inorder traversal result is 3, 2, 1, and then, first one of viloations is 3, 2, 
+         *     second one of viloations is 2, 1. 
+         */
+        private static void traverse_B(TreeNode t)
+        {
+            if (t == null)
+            {
+                return;
+            }
+
+            traverse(t.left);
+
+
+            bool inIncreasingOrder = t.val > theLast.val;
+            if (!inIncreasingOrder)  // not in increasing order 
+            {
+                if (v1 == null)
+                {
+                    v1 = t;    // first violation node, with bigger value                   
+                }
+
+                v2 = theLast;  // second violation node, with smaller value 
+            }
+
+            theLast = t;
+            traverse(t.right);
+        }
     }
 }
