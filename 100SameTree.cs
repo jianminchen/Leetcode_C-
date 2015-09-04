@@ -114,8 +114,15 @@ namespace _100SameTree
          *      54 / 54 test cases passed.
                 Status: Accepted
                 Runtime: 168 ms
-         * 
-         * 
+         * 6. The tree traversal is kind of level traversal, BFS, two trees are compared
+         *    to level by level; 
+         *    Julia argues that DFS search traversal does not work, counter example: 
+         *    two tree can be different, but in-order traversal can be the same. 
+         *     2                                                      3
+         *    / \                                                    / \ 
+         *   1   4       <- in order traversal both 1 2 3 4 - >     2   4 
+         *      /                                                  /
+         *     3                                                  1
          */
         public static bool isSameTree(TreeNode p, TreeNode q)
         {            
