@@ -67,7 +67,8 @@ namespace _106ConstructuBTreeFromInorderPostOrderTraversal
          * 2. Try to pass online judge
          * 3. Try to improve the code for more reable, testable, maintainable. 
          * 4. C++ unordered_map<int, int>  vs C# hashtable 
-         * 
+         * 5. hashtable is extra space used for storing inorder array's node value as key, position as value, size O(N)
+         *    assuming that the value is unique in the inorder traversal array . 
          */
         static Hashtable htable = new Hashtable();
 
@@ -77,7 +78,7 @@ namespace _106ConstructuBTreeFromInorderPostOrderTraversal
                 return null;
             }
 
-            int i_l = inorder.Length;     // key value is unique, otherwise rewrite the value.  key: node value,k value: index 
+            int i_l = inorder.Length;     
             for(int i = 0; i < i_l; i++) {
                 htable[inorder[i]] = i;
             }
@@ -113,7 +114,8 @@ namespace _106ConstructuBTreeFromInorderPostOrderTraversal
          *      remember, the post order traversal, is 
          *      4, 5->2 (from down to up), 6, 7->3->1 (from down to up) 
          *      So, find the node in the in order traversal array, denote as rootPos.  
-         *      and then, use recursive call to find root's left child, smiliar the step 1: find the root
+         *      and then, use recursive call to find root's left child, smiliar the step 1: find the root, 
+         *          because it is to find the root of left subtree, in other words, find the root of a tree. 
          *      and then, use recursive call to find root's right child, smiliar the stpe 1: find the root
          *      Only need to calculate the post order traversal start / end index accordingly, using rootPos variable. 
          *      That is all. 
