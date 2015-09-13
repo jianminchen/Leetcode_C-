@@ -165,6 +165,10 @@ namespace _106ConstructuBTreeFromInorderPostOrderTraversal
          *   
          *   another training, use recursive call to find left child and right child, it is the same task, use recursive call. 
          *   The decision has to be made quickly and firmly, in 1-2 minutes. 
+         *   
+         * The interval should be encapsulated in the class/structure/interface, then, it is not easy to miss
+         * any mistake when writing. Here is the second version of C# solution: (9/13/2015)
+         * https://github.com/jianminchen/Leetcode_C-/blob/master/106ConstructBTreeFromInOrderPostOrderTraversal_B.cs
          * 
          * 2. online judge:
          *  202 / 202 test cases passed.
