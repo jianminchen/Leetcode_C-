@@ -19,6 +19,8 @@ namespace _106ConstructuBTreeFromInorderPostOrderTraversal
         }
     }
 
+   
+
     class Program
     {
         static void Main(string[] args)
@@ -67,8 +69,17 @@ namespace _106ConstructuBTreeFromInorderPostOrderTraversal
          * 2. Try to pass online judge
          * 3. Try to improve the code for more reable, testable, maintainable. 
          * 4. C++ unordered_map<int, int>  vs C# hashtable 
-         * 5. hashtable is extra space used for storing inorder array's node value as key, position as value, size O(N)
-         *    assuming that the value is unique in the inorder traversal array . 
+         * 5. hashtable is extra space used for storing inorder array's node value as key, position as value, 
+         *    extra space depends on the hashtable size. 
+         *    assuming that the value is unique in the inorder traversal array. Why? 
+         *    
+         *    Compare to alternative solution, if in the build function, go through 
+         *    the array one by one to find the root position, time is O(N), then, in total, 
+         *    at least O(ln N) recursive calls, so this time complexity is O(N lnN).
+         *    
+         *    So, the hashtable is a great idea to set up once, and use for every recursive
+         *    calls. 
+         * 
          */
         static Hashtable htable = new Hashtable();
 
@@ -136,13 +147,15 @@ namespace _106ConstructuBTreeFromInorderPostOrderTraversal
          *   in order traversal array, only root node is not in the recursive call; the position is retrieved from hashtable, rootPos; 
          *   post order traversal array, only root node, last node is not in the recursive call. 
          *   
-         *   The time spent on recursive calls - inorder/ postorder traversal array is over 20 minutes / need to cut down 2-3 minutes
+         *   The time to prepare recursive calls - inorder/ postorder traversal array is julia's traing area, 
+         *    nornally, it will take julia 20 minutes / need to cut down 2-3 minutes
+         *    
          *    tips to cut the calculation
          *    how to prepare the interval without error
          *    what is most important test case to run through for those two intervals 
          *   
-         *   Another weakness - julia has to know, quickly get the help to use two recursive calls to get the left subtree root - left child, 
-         *   right subtree root - right child; time to think what to solve - recursive calls - less than 2 minutes. 
+         *   another training, use recursive call to find left child and right child, it is the same task, use recursive call. 
+         *   The decision has to be made quickly and firmly, in 1-2 minutes. 
          * 
          * 2. online judge:
          *  202 / 202 test cases passed.
