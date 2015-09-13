@@ -123,10 +123,17 @@ namespace _106ConstructBTreeFromInOrderPostOrderTraversal_B
         }
 
         /*
+         * 09/12/2015
          *  partition the interval to two, one is left side of mid position, another is right side
          *  assume r.start <= mid <= r.end
          *  
          * this partition applies the inorder traversal array 
+         * 09/13/2015 
+         * After all the code is done, and then, thought about, add this additional note to help myself training better, 
+         * for next time to review my code. 
+         * 
+         * inorder traversal array: Left subtree, Root Node, Right subtree
+         * so, if the root node position can be identified, then two subtree can be seperated by root node. 
          */ 
         public static  ArrayList partitionByMidPoint(Range r, int mid)
         {
@@ -138,12 +145,16 @@ namespace _106ConstructBTreeFromInOrderPostOrderTraversal_B
             return l; 
         }
 
-        /*
+        /* 09/12/2015
          * partition the interval to two, first interval length is input argument: len, 
          * second one is the rest part, extra last one 
          * 
          * this partition is customized for post order traversal array. 
-         * 
+         * 09/13/2015
+         * add one more note to help:
+         * Post order traversal array: Left subtree, right subtree, Root node
+         * so partition them to add left subtree, right subtree to the list, 
+         * only if the length of left subtree is known, then, partition can be done. 
          */
         public static ArrayList partitionByLength(Range r, int len)
         {
