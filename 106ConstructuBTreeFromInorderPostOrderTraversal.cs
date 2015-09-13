@@ -78,7 +78,16 @@ namespace _106ConstructuBTreeFromInorderPostOrderTraversal
          *    at least O(ln N) recursive calls, so this time complexity is O(N lnN).
          *    
          *    So, the hashtable is a great idea to set up once, and use for every recursive
-         *    calls. 
+         *    calls.
+         * 6. 9/13/2015: add more notes after code is complete
+         *    post order traversal array: Left subtree, right subtree, root node
+         *    in order traversal array: left subtree, root node, right subtree
+         *    So, find root node is O(1) using post order traversal array, 
+         *    and then, use the value to find its position in the in order traversal array, 
+         *    preprocessing a hashtable to store inorder traversal array, then, find position using O(1) only 
+         *    in each recusive call. 
+         *    
+         *    Then, work on left subtree, right subtree, only thing is to find the root for each of them. 
          * 
          */
         static Hashtable htable = new Hashtable();
