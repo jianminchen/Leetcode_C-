@@ -45,16 +45,19 @@ namespace _241DifferentWaysToAddParentheses
                 n1 = n1 * 10 + s[i] - '0'; 
             }
 
-            // if pure number, just return
-            bool isPureNumber = i==n2; 
-            if (isPureNumber)
-                return new int[]{n1};
-
             IList<int> list = new List<int>();
+            // if pure number, just return
+            bool isPureNumber = i==n2;
+            if (isPureNumber)
+            {
+                list.Add(n1);
+                return list;
+            }
+            
             IList<int> lefts = new List<int>();
             IList<int> rights = new List<int>();
 
-            lefts = diffWays_MissingMemorization(s.Substring(0, i));
+            lefts  = diffWays_MissingMemorization(s.Substring(0, i));
             rights = diffWays_MissingMemorization(s.Substring(i + 1, n2 - i));
 
             for (int j = 0; j < lefts.Count; j++)
@@ -62,8 +65,8 @@ namespace _241DifferentWaysToAddParentheses
                 {
                     int   a = lefts[j];
                     int   b = rights[k]; 
-                    char op = s[i]; 
-                    int res = compute(lefts[j], rights[k], op); 
+                    char op = s[i];
+                    int res = compute(a, b, op); 
                     list.Add(res);
                 }
 
@@ -115,7 +118,8 @@ namespace _241DifferentWaysToAddParentheses
             if (isPureNumber)
             {
                 list.Add(n1);
-                memo[cache_key] = list; 
+                
+                memo.Add(cache_key, list); 
                  
                 return list;
             }
@@ -137,7 +141,7 @@ namespace _241DifferentWaysToAddParentheses
                     list.Add(res);
                 }
 
-            memo[cache_key] = list; 
+            memo.Add(cache_key, list);  
 
             return list; 
         }
