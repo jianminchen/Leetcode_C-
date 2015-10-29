@@ -119,7 +119,7 @@ namespace _241DifferentWaysToAddParentheses
                  
                 return list;
             }
-            
+             
             IList<int> lefts = new List<int>();
             IList<int> rights = new List<int>();
 
