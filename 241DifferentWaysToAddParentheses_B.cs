@@ -30,10 +30,10 @@ namespace _241DifferentWaysToAddParentheses_B
         static void Main(string[] args)
         {
             string test = "2-1-1";
-            List<Int16> list = diffWaysToCompute(test);
+            IList<int> list = DiffWaysToCompute(test);
 
             string test2 = "2*3-4*5";
-            List<Int16> list2 = diffWaysToCompute(test2);
+            IList<int> list2 = DiffWaysToCompute(test2);
         }
 
         /*
@@ -60,18 +60,23 @@ namespace _241DifferentWaysToAddParentheses_B
          * F. What to choose, int, or INT16, or any integer type? 
          *   int - System.Int32 - signed 32 bit integer 
          *   Int16 
+         *   
+         * online judge:
+         *  24 / 24 test cases passed.
+            Status: Accepted
+            Runtime: 468 ms
          */
-        public static IList<int> diffWaysToCompute(String s1) {  
+        public static IList<int> DiffWaysToCompute(String input) {  
             IList<int> res = new List<int>();  
 
-            for(int i=0; i<s1.Length; i++){  
-                char c = s1[i];  
+            for(int i=0; i<input.Length; i++){  
+                char c = input[i];  
                 if('+' == c || '-' == c || '*' == c) {  
-                    String lv = s1.Substring(0, i);  
-                    String rv = s1.Substring(i+1); 
+                    String lv = input.Substring(0, i);  
+                    String rv = input.Substring(i+1); 
  
-                    IList<int> lefts   = diffWaysToCompute(lv);  
-                    IList<int> rights  = diffWaysToCompute(rv);  
+                    IList<int> lefts   = DiffWaysToCompute(lv);  
+                    IList<int> rights  = DiffWaysToCompute(rv);  
 
                     foreach(int j in lefts) {  
                         foreach(int k in rights){  
@@ -94,7 +99,7 @@ namespace _241DifferentWaysToAddParentheses_B
             }  
 
             if(res.Count == 0){  
-                    res.Add(Convert.ToInt16(s1));  
+                    res.Add(Convert.ToInt16(input));  
                 } 
  
             return res;  
