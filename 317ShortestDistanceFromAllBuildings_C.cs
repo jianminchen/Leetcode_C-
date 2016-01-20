@@ -164,7 +164,7 @@ namespace _317ShortestDistanceFromAllBuildings_C
             IList<Node> list = getListOfBuilding(grid);
 
             foreach (Node node in list)                                           
-                BFS(node, 0, dist, reach, grid);            
+                BFS(node, dist, reach, grid);            
 
             // step 2: caluclate the minimum distance
             int minDist = Int16.MaxValue;
@@ -216,8 +216,7 @@ namespace _317ShortestDistanceFromAllBuildings_C
 by Bill Wagner  (Author)
          * Item 2: Prefer readonly to const
          */
-        private void BFS(Node origNode,
-            int currDistance,
+        private void BFS(Node origNode,            
             int[][] dist,
             int[][] reach,
             int[][] grid                        
