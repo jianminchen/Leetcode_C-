@@ -40,24 +40,21 @@ namespace _318MaximumProductOfWordLength
         {
             IList<string> words = new List<string>{"a","ab","abc","d","cd","bcd","abcd"};
             // result: 4, two words, "ab", "cd"
-            maxProduct(words); 
+            int result = maxProduct(words); 
         }
 
+        /*
+         * 1. 26 chars - 
+         * 2. get a list of list with 26 chars 
+         * 3. Two words contains the same char - extract to a function
+         * 
+         * bug001 - do not break the loop - 
+         */
         public static int maxProduct(IList<string> words)
         {
             int n = words.Count;
 
-            IList<IList<int>> elements = new List<IList<int>>();
-            for (int i = 0; i < n; i++)
-            {
-                IList<int> tmpL = new List<int>(); 
-                for(int j=0 ;j < 26;j++)
-                {
-                    tmpL.Add(0); 
-                }
-
-                elements.Add(tmpL); 
-            }
+            IList<IList<int>> elements = getListWithInitilization(n); 
 
             for (int i = 0; i < n; i++)
             {
@@ -70,18 +67,37 @@ namespace _318MaximumProductOfWordLength
             int ans = 0; 
             for(int i=0; i<n; i++)
                 for (int j = i + 1; j < n; j++)
-                {
-                    bool flag = true;
-                   
-                    twoWordsDoNotContainSameChar(elements[i], elements[j]); 
-
-                    if (flag && words[i].Length * words[j].Length > ans)
-                        ans = words[i].Length * words[j].Length; 
+                {                   
+                    if (twoWordsDoNotContainSameChar(elements[i], elements[j]))
+                    {
+                        int current = words[i].Length * words[j].Length; 
+                        
+                        ans = current>ans? current : ans; 
+                    }
                 }
 
             return ans;
         }
 
+        /*
+         * Extract to a function
+        */
+        private static IList<IList<int>> getListWithInitilization(int n)
+        {
+            IList<IList<int>> elements = new List<IList<int>>();
+            for (int i = 0; i < n; i++)
+            {
+                IList<int> tmpL = new List<int>();
+                for (int j = 0; j < 26; j++)
+                {
+                    tmpL.Add(0);
+                }
+
+                elements.Add(tmpL);
+            }
+
+            return elements; 
+        }
         /*
          * Make the function 
          * Go through all 26 chars and see if both has one. 
