@@ -111,7 +111,17 @@ namespace _318MaximumProductOfWordLength_B
          * 14 << 2 <-  14 (00001110 in binary shifted left two bits equals 56 (00111000 in binary). 
          * 
          * Julia confused that 14 << 2, left shift 2 times, she thought opposite - 2 shift 14 times. 
-         * - look up google and then find out this design. 
+         * - look up google and then find out this design - remember the associativity - left to right for bitwise shift
+         * 
+         * Read the blog:
+         * https://msdn.microsoft.com/en-us/library/2bxt6kc4.aspx
+         * 
+         * about precedence and associatity 
+         * Precedence and Associativity of C Operators
+         * symbol:            << 
+         * Type of operation: bitwise shift 
+         * Associativity:     left to right 
+         * 
          * 
          * 5. Integer expression cannot reverse back to the string, but it does not matter for problem solving.    
          * Bug001 - word[i] - 'a' 
