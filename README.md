@@ -1,6 +1,6 @@
 # Leetcode_C-
 
-Latest update on September 3, 2015. 
+Starting from September 3, 2015, I started my first practice on Leetcode algorithms. 
 
 Leetcode problems solving using c# programming language. 
 
