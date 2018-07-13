@@ -23,7 +23,9 @@ https://github.com/jianminchen/Leetcode_C-/tree/master/2017%20May%20-%202018%20M
 
 July 13, 2018
 
-The C# solutions are restored to support coding blogs. 
+The C# solutions in the folder https://github.com/jianminchen/Leetcode_C- are restored to support coding blogs. 
+
+I just copy all the source code from the folder: https://github.com/jianminchen/Leetcode_C-/tree/master/2015%20January%20-%202017%20May
 
 
 
