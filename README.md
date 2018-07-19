@@ -21,6 +21,11 @@ Add 42 submissions from May 2017 to May 2018
 
 https://github.com/jianminchen/Leetcode_C-/tree/master/2017%20May%20-%202018%20May%2042%20Algorithms%20Submission
 
+July 13, 2018
+
+The C# solutions in the folder https://github.com/jianminchen/Leetcode_C- are restored to support coding blogs. 
+
+I just copy all the source code from the folder: https://github.com/jianminchen/Leetcode_C-/tree/master/2015%20January%20-%202017%20May
 
 
 
