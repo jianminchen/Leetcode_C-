@@ -1,4 +1,4 @@
-# Leetcode algorithms - around 100 algorithm
+# Leetcode algorithms
 
 Starting from September 3, 2015, I started my first practice on Leetcode algorithms. 
 
