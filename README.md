@@ -1,4 +1,4 @@
-# Leetcode_C-
+# Leetcode algorithms - around 100 algorithm
 
 Starting from September 3, 2015, I started my first practice on Leetcode algorithms. 
 
@@ -22,6 +22,12 @@ July 13, 2018
 The C# solutions in [the folder](https://github.com/jianminchen/Leetcode_C-) are restored to support coding blogs. 
 
 I just copy all the source code from [the folder](https://github.com/jianminchen/Leetcode_C-/tree/master/2015%20January%20-%202017%20May)
+
+**August, 2018**
+
+My Leeetcode algorithms are located here: 
+
+https://github.com/jianminchen/Leetcode_Julia
 
 
 
