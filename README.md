@@ -25,9 +25,11 @@ I just copy all the source code from [the folder](https://github.com/jianminchen
 
 **August, 2018**
 
-My Leeetcode algorithms are located here: 
+New home for my Leeetcode algorithms: 
 
 https://github.com/jianminchen/Leetcode_Julia
+
+Current leetcode folder remains since I have to support some coding blog with links to the source code. 
 
 
 
